@@ -1,0 +1,16 @@
+.nav__container{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    background-color: #ffd861;
+    ul{
+        li{
+            a{
+                color: black;
+                font-size: 20px;
+            }
+        }
+    }
+}

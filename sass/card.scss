@@ -1,0 +1,108 @@
+.vinos__container {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 160px 20px 160px;
+  .vinos__tituloContainer {
+    display: flex;
+    justify-content: center;
+    border-bottom: 3px solid black;
+    margin: 0px 75px 0px 75px;
+    h2 {
+      font-size: 26px;
+    }
+  }
+  .vinos__filtros {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0px 5px 0px;
+    justify-content: center;
+    align-items: center;
+    div {
+      padding: 0px 10px 0px 10px;
+      .vinos__p {
+        margin-bottom: 0px;
+        font-weight: bold;
+      }
+      input {
+        height: 30px;
+      }
+    }
+  }
+  .vinos__listadoContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    .vinos__cardContainer {
+      display: flex;
+      flex-direction: column;
+      border: solid 1px red;
+      width: 350px;
+      height: 500px;
+      box-sizing: border-box;
+      align-items: center;
+      margin: 25px;
+      .vinos__fotoContainer {
+        display: flex;
+        justify-content: center;
+        width: 275px;
+        height: 360px;
+        margin-top: 5px;
+        img {
+          width: 200px;
+        }
+      }
+      .vinos__nombreContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        margin: 10px 25px 10px 25px;
+        p {
+          text-transform: uppercase;
+          font-size: 17px;
+          font-weight: bold;
+          border-bottom: 1px solid brown;
+          padding: 0px 15px 0px 15px;
+        }
+      }
+      .vinos__cepaPrecioContainer {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+        align-items: center;
+        height: 30px;
+        width: 275px;
+        margin: 10px 25px 0px 25px;
+        border-bottom: 1px solid brown;
+        .vinos__precioContainer {
+          display: flex;
+          flex-direction: row;
+          p {
+            font-weight: bold;
+          }
+        }
+        .vinos__cepaContainer {
+          display: flex;
+          flex-direction: row;
+          p {
+            text-transform: capitalize;
+            font-size: 16px;
+            font-weight: bold;
+          }
+        }
+      }
+      .vinos__stockContainer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 275px;
+        height: 30px;
+        margin: 15px 25px 10px 25px;
+        p {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

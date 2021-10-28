@@ -1,0 +1,35 @@
+.form__main {
+  background-color: beige;
+  .form__btnContainer {
+    display: flex;
+    justify-content: center;
+    padding: 5px 0px 5px 0px;
+  }
+
+  .form__mainContainer {
+    display: none;
+    .form__container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      padding-bottom: 5px;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        margin: 0px 10px 0px 10px;
+        p {
+          margin-bottom: 5px;
+          font-weight: bold;
+        }
+        input {
+          width: 150px;
+        }
+      }
+      .form__btnSubmit {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+}
