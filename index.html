@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/styles.css">
+
+</head>
+
+<body>
+    <header>
+        <div class="header__Container">
+            <div class="header__tituloContainer">
+                <h1>Vinoteca San José</h1>
+            </div>
+            <div class="header__derechaContainer">
+                <div class="header__hipervinculosContainer">
+                    <h2>Seguinos:</h2>
+                    <img src="" alt="">
+                    <img src="" alt="">
+                </div>
+                <div class="header__carritoContainer">
+                    <div>
+                        <h2>Carrito</h2>
+                    </div>
+                    <div><img src="./vinos/carrito.svg" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav class="nav__container">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Lista de Vinos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Ofertas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./index.html#carrito">Carrito</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contacto</a>
+            </li>
+        </ul>
+    </nav>
+    <section class="form__main">
+        <div class="form__btnContainer">
+            <button id="panelAgregado">Agregado de vinos: Admin</button>
+        </div>
+        <form action="" method="" class="form__mainContainer">
+            <div class="form__container">
+                <div>
+                    <p>Nombre:</p>
+                    <input type="text" id="nombreVino" placeholder="Nombre del vino">
+                </div>
+                <div>
+                    <p>Cepa:</p>
+                    <input type="text" id="cepaVino" placeholder="Cepa del vino">
+                </div>
+                <div>
+                    <p>Precio:</p>
+                    <input type="number" id="precioVino" placeholder="Precio del vino">
+                </div>
+                <div>
+                    <p>Stock:</p>
+                    <input type="number" id="stockVino" placeholder="Stock del vino">
+                </div>
+                <div class="form__btnSubmit">
+                    <button id="submitVinos">Agregar</button>
+                </div>
+
+            </div>
+        </form>
+    </section>
+    <section class="table__sectionContainer">
+        <div class="table__showListaContainer">
+            <button id="showLista">Mostrar lista: Admin</button>
+        </div>
+        <div class="table__tableMainContainer">
+            <table class="table__container" id="tablaP">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Cepa</th>
+                    <th class="table__ancho">Precio</th>
+                    <th class="table__ancho">Stock</th>
+                </thead>
+                <tbody id="tablita" class="table__tablita">
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section>
+        <div class="vinos__container">
+            <div class="vinos__tituloContainer">
+                <h2 class="vinos__titulo">Muestrario de Vinos</h2>
+            </div>
+            <div class="vinos__filtros">
+                <div>
+                    <p class="vinos__p">Filtros de búsqueda:</p>
+                </div>
+                <div>
+                    <button id="ordenarListaMenor">Precio de menor a mayor</button>
+                </div>
+                <div>
+                    <button id="ordenarListaMayor">Precio de mayor a menor</button>
+                </div>
+                <div> 
+                    <input type="text" id="filtroCepa" placeholder="Filtro por Cepa" onkeyup="filtrado(event)">
+                </div>
+
+                <div> 
+                    <button type="text" id="borrarFiltro">Sacar filtros</button>
+                </div>
+
+            </div>
+            <div class="vinos__listadoContainer" id="listadoCompleto">
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2 id="carrito">Carrito</h2>
+    </section>
+    <section>
+
+
+
+        <button id="mostrarVinos">Mostrar la lista de vinos por consola</button>
+
+
+        <h3>Funcion suma total de stock</h3>
+        <button id="sumaStock">Suma total de stock</button>
+
+        
+        <h3>Funcion compra de vinos</h3>
+        <button id="compra">Compra vino</button>
+    </section>
+    <footer>
+
+    </footer>
+
+
+
+    <script src="./jquery.js"></script>
+    <script src="./app.js"></script>
+
+</body>
+
+</html>

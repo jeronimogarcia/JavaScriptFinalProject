@@ -1,0 +1,192 @@
+.header__Container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #252525;
+  height: 100px;
+  padding: 0px 225px 0px 225px; }
+  .header__Container .header__tituloContainer {
+    display: flex;
+    align-items: center; }
+    .header__Container .header__tituloContainer h1 {
+      color: white; }
+  .header__Container .header__derechaContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 0px; }
+    .header__Container .header__derechaContainer .header__hipervinculosContainer {
+      display: flex;
+      justify-content: flex-end;
+      width: 250px;
+      border-bottom: white solid 1px; }
+      .header__Container .header__derechaContainer .header__hipervinculosContainer h2 {
+        font-size: 16px;
+        color: white;
+        margin-bottom: 12px; }
+    .header__Container .header__derechaContainer .header__carritoContainer {
+      height: 30px;
+      display: flex;
+      justify-content: flex-end; }
+    .header__Container .header__derechaContainer h2 {
+      color: white;
+      font-size: 16px;
+      margin-bottom: 0px;
+      margin-top: 4px;
+      padding-right: 5px; }
+
+.vinos__container {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 160px 20px 160px; }
+  .vinos__container .vinos__tituloContainer {
+    display: flex;
+    justify-content: center;
+    border-bottom: 3px solid black;
+    margin: 0px 75px 0px 75px; }
+    .vinos__container .vinos__tituloContainer h2 {
+      font-size: 26px; }
+  .vinos__container .vinos__filtros {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0px 5px 0px;
+    justify-content: center;
+    align-items: center; }
+    .vinos__container .vinos__filtros div {
+      padding: 0px 10px 0px 10px; }
+      .vinos__container .vinos__filtros div .vinos__p {
+        margin-bottom: 0px;
+        font-weight: bold; }
+      .vinos__container .vinos__filtros div input {
+        height: 30px; }
+  .vinos__container .vinos__listadoContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center; }
+    .vinos__container .vinos__listadoContainer .vinos__cardContainer {
+      display: flex;
+      flex-direction: column;
+      border: solid 1px red;
+      width: 350px;
+      height: 500px;
+      box-sizing: border-box;
+      align-items: center;
+      margin: 25px; }
+      .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__fotoContainer {
+        display: flex;
+        justify-content: center;
+        width: 275px;
+        height: 360px;
+        margin-top: 5px; }
+        .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__fotoContainer img {
+          width: 200px; }
+      .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__nombreContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        margin: 10px 25px 10px 25px; }
+        .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__nombreContainer p {
+          text-transform: uppercase;
+          font-size: 17px;
+          font-weight: bold;
+          border-bottom: 1px solid brown;
+          padding: 0px 15px 0px 15px; }
+      .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__cepaPrecioContainer {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+        align-items: center;
+        height: 30px;
+        width: 275px;
+        margin: 10px 25px 0px 25px;
+        border-bottom: 1px solid brown; }
+        .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__cepaPrecioContainer .vinos__precioContainer {
+          display: flex;
+          flex-direction: row; }
+          .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__cepaPrecioContainer .vinos__precioContainer p {
+            font-weight: bold; }
+        .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__cepaPrecioContainer .vinos__cepaContainer {
+          display: flex;
+          flex-direction: row; }
+          .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__cepaPrecioContainer .vinos__cepaContainer p {
+            text-transform: capitalize;
+            font-size: 16px;
+            font-weight: bold; }
+      .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__stockContainer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 275px;
+        height: 30px;
+        margin: 15px 25px 10px 25px; }
+        .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__stockContainer p {
+          font-weight: bold; }
+
+.nav__container {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  background-color: #ffd861; }
+  .nav__container ul li a {
+    color: black;
+    font-size: 20px; }
+
+.form__main {
+  background-color: beige; }
+  .form__main .form__btnContainer {
+    display: flex;
+    justify-content: center;
+    padding: 5px 0px 5px 0px; }
+  .form__main .form__mainContainer {
+    display: none; }
+    .form__main .form__mainContainer .form__container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      padding-bottom: 5px; }
+      .form__main .form__mainContainer .form__container div {
+        display: flex;
+        flex-direction: column;
+        margin: 0px 10px 0px 10px; }
+        .form__main .form__mainContainer .form__container div p {
+          margin-bottom: 5px;
+          font-weight: bold; }
+        .form__main .form__mainContainer .form__container div input {
+          width: 150px; }
+      .form__main .form__mainContainer .form__container .form__btnSubmit {
+        display: flex;
+        justify-content: flex-end; }
+
+.table__sectionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #dee2e6; }
+
+.table__showListaContainer {
+  display: flex;
+  justify-content: center;
+  padding: 5px 0px 5px 0px; }
+
+.table__tableMainContainer {
+  background-color: #dee2e6;
+  padding-bottom: 5px;
+  display: none; }
+  .table__tableMainContainer .table__container {
+    font-size: 25px;
+    margin-top: 2px;
+    width: 500px; }
+    .table__tableMainContainer .table__container thead tr th {
+      padding-left: 2px;
+      border: solid 1px black;
+      width: 125px; }
+    .table__tableMainContainer .table__container thead tr .table__ancho {
+      width: 80px; }
+    .table__tableMainContainer .table__container .table__tablita tr td {
+      padding-left: 2px;
+      text-transform: capitalize;
+      border: solid 1px black; }
