@@ -39,6 +39,22 @@
   display: flex;
   flex-direction: column;
   padding: 5px 160px 20px 160px; }
+  .vinos__container .vinos__bottonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    opacity: 80%;
+    z-index: 1;
+    position: relative;
+    top: 200px;
+    padding: 5px;
+    background-color: blue; }
+    .vinos__container .vinos__bottonContainer .vinos__bottonCompra {
+      width: 110px;
+      height: 30px;
+      background-color: blue;
+      border: none; }
   .vinos__container .vinos__tituloContainer {
     display: flex;
     justify-content: center;
@@ -78,7 +94,9 @@
         justify-content: center;
         width: 275px;
         height: 360px;
-        margin-top: 5px; }
+        margin-top: 5px;
+        position: relative;
+        bottom: 25px; }
         .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__fotoContainer img {
           width: 200px; }
       .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__nombreContainer {
@@ -86,7 +104,9 @@
         justify-content: center;
         align-items: center;
         height: 30px;
-        margin: 10px 25px 10px 25px; }
+        margin: 10px 25px 10px 25px;
+        position: relative;
+        bottom: 25px; }
         .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__nombreContainer p {
           text-transform: uppercase;
           font-size: 17px;
@@ -101,7 +121,9 @@
         height: 30px;
         width: 275px;
         margin: 10px 25px 0px 25px;
-        border-bottom: 1px solid brown; }
+        border-bottom: 1px solid brown;
+        position: relative;
+        bottom: 25px; }
         .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__cepaPrecioContainer .vinos__precioContainer {
           display: flex;
           flex-direction: row; }
@@ -120,7 +142,9 @@
         align-items: center;
         width: 275px;
         height: 30px;
-        margin: 15px 25px 10px 25px; }
+        margin: 15px 25px 10px 25px;
+        position: relative;
+        bottom: 25px; }
         .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__stockContainer p {
           font-weight: bold; }
 
@@ -130,7 +154,8 @@
   top: 0;
   display: flex;
   justify-content: center;
-  background-color: #ffd861; }
+  background-color: #ffd861;
+  z-index: 2; }
   .nav__container ul li a {
     color: black;
     font-size: 20px; }
@@ -190,3 +215,44 @@
       padding-left: 2px;
       text-transform: capitalize;
       border: solid 1px black; }
+
+.carrito__sectionContainer {
+  display: none; }
+  .carrito__sectionContainer .carrito__divContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #dee2e6; }
+  .carrito__sectionContainer .carrito__showListaContainer {
+    display: flex;
+    justify-content: center;
+    padding: 5px 0px 5px 0px; }
+  .carrito__sectionContainer .carrito__tableMainContainer {
+    background-color: #dee2e6;
+    padding-bottom: 5px; }
+    .carrito__sectionContainer .carrito__tableMainContainer .carrito__container {
+      font-size: 25px;
+      margin-top: 2px;
+      width: 500px; }
+      .carrito__sectionContainer .carrito__tableMainContainer .carrito__container thead tr th {
+        padding-left: 2px;
+        border: solid 1px black;
+        width: 125px; }
+      .carrito__sectionContainer .carrito__tableMainContainer .carrito__container thead tr .carrito__border {
+        border: none; }
+      .carrito__sectionContainer .carrito__tableMainContainer .carrito__container thead tr .carrito__ancho {
+        width: 80px; }
+      .carrito__sectionContainer .carrito__tableMainContainer .carrito__container .carrito__tablita tr td {
+        padding-left: 2px;
+        text-transform: capitalize;
+        border: solid 1px black; }
+      .carrito__sectionContainer .carrito__tableMainContainer .carrito__container .carrito__tablita tr .carrito__cantidad {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 39px; }
+        .carrito__sectionContainer .carrito__tableMainContainer .carrito__container .carrito__tablita tr .carrito__cantidad .carrito__input {
+          width: 100%;
+          height: 100%; }
+      .carrito__sectionContainer .carrito__tableMainContainer .carrito__container .carrito__tablita tr .carrito__subtotal .carrito__numero {
+        font-size: 15px; }

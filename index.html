@@ -113,11 +113,11 @@
                 <div>
                     <button id="ordenarListaMayor">Precio de mayor a menor</button>
                 </div>
-                <div> 
+                <div>
                     <input type="text" id="filtroCepa" placeholder="Filtro por Cepa" onkeyup="filtrado(event)">
                 </div>
 
-                <div> 
+                <div>
                     <button type="text" id="borrarFiltro">Sacar filtros</button>
                 </div>
 
@@ -126,8 +126,29 @@
             </div>
         </div>
     </section>
-    <section>
-        <h2 id="carrito">Carrito</h2>
+    <section class="carrito__sectionContainer" id="carritoSection">
+        <div class="carrito__divContainer">
+            <div class="carrito__tableMainContainer">
+                <table class="carrito__container" id="tablaP">
+                    <thead>
+                        <th>Nombre</th>
+                        <th>Cepa</th>
+                        <th class="carrito__ancho">Precio</th>
+                        <th class="carrito__ancho">Cantidad</th>
+                        <th class="carrito__ancho">Subtotal</th>
+                    </thead>
+                    <tbody id="carrito" class="carrito__tablita">
+                    </tbody>
+                    <thead>
+                        <th class="carrito__border"></th>
+                        <th class="carrito__border"></th>
+                        <th>Total</th>
+                        <th></th>
+                        <th></th>
+                    </thead>
+                </table>
+            </div>
+        </div>
     </section>
     <section>
 
@@ -139,7 +160,7 @@
         <h3>Funcion suma total de stock</h3>
         <button id="sumaStock">Suma total de stock</button>
 
-        
+
         <h3>Funcion compra de vinos</h3>
         <button id="compra">Compra vino</button>
     </section>

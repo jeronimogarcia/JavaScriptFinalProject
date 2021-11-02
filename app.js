@@ -1,11 +1,12 @@
 // constructor
 class Vinos {
-  constructor(nombre, cepa, precio, stock, fotoId) {
+  constructor(nombre, cepa, precio, stock, fotoId, sub) {
     this.nombre = nombre;
     this.cepa = cepa;
     this.precio = precio;
     this.stock = stock;
     this.fotoId = fotoId ? fotoId : 0;
+    this.sub = sub;
   }
 }
 
@@ -23,22 +24,36 @@ let listaImagenes = [
 
 // lista prearmado de vinos
 let tabla = document.getElementById("tablita");
+let carrito = document.getElementById("carrito");
 let listaVinos = [];
+let listaCarrito = [];
 let listado = document.getElementById("listadoCompleto");
 
 // localStorage
 const listaVinosStorage = window.localStorage.getItem(`listaVinos`);
+const listaVinosCarrito = window.localStorage.getItem(`listaCarrito`);
+
+// id card
+let identificacion = 0;
+//id btn
+let idInput = 100;
 
 // listaVinosStorage = null? pusheo : listaVinosStorage = string (getItem)
 if (listaVinosStorage) {
   listaVinos = JSON.parse(window.localStorage.getItem(`listaVinos`));
 } else {
-  listaVinos.push(new Vinos(`lopez`, `malbec`, 760, 8, 1));
-  listaVinos.push(new Vinos(`bianchi`, `cabernet`, 450, 20, 2));
-  listaVinos.push(new Vinos(`uxmal`, `malbec`, 400, 15, 3));
-  listaVinos.push(new Vinos(`senetiner`, `cabernet`, 830, 6, 4));
-  listaVinos.push(new Vinos(`rutini`, `cabernet`, 1500, 10, 5));
-  listaVinos.push(new Vinos(`trumpeter`, `malbec`, 860, 13, 6));
+  listaVinos.push(new Vinos(`lopez`, `malbec`, 760, 8, 1, 0));
+  listaVinos.push(new Vinos(`bianchi`, `cabernet`, 450, 20, 2, 0));
+  listaVinos.push(new Vinos(`uxmal`, `malbec`, 400, 15, 3, 0));
+  listaVinos.push(new Vinos(`senetiner`, `cabernet`, 830, 6, 4, 0));
+  listaVinos.push(new Vinos(`rutini`, `cabernet`, 1500, 10, 5, 0));
+  listaVinos.push(new Vinos(`trumpeter`, `malbec`, 860, 13, 6, 0));
+}
+
+// listaVinosCarrito
+if (listaVinosCarrito) {
+  listaCarrito = JSON.parse(window.localStorage.getItem(`listaCarrito`));
+} else {
 }
 
 // actualizado de tabla IMPORTANTISIMO
@@ -73,6 +88,7 @@ function eliminarVino(indice) {
   actualizarTabla();
 }
 
+
 // actualizacion de tabla general !!!**
 function actualizarTabla() {
   const tempLista = Array.from(tabla.children);
@@ -89,6 +105,7 @@ function actualizarTabla() {
   });
   listaVinos.forEach((vino, indice) => {
     addVinos(vino, indice);
+    identificacion++;
   });
 
   window.localStorage.setItem(`listaVinos`, JSON.stringify(listaVinos));
@@ -157,7 +174,7 @@ function ordenarPrecioMenor() {
   console.log(listaVinos);
 }
 
-// funcion ordenar lista de mayor a menos
+// funcion ordenar lista de mayor a menor
 function ordenarPrecioMayor() {
   listaVinos.sort((a, b) => {
     if (a.precio > b.precio) {
@@ -278,6 +295,21 @@ function addVinos(vino) {
   cepaPrecioContainer.setAttribute("class", "vinos__cepaPrecioContainer");
   let stockContainer = document.createElement("div");
   stockContainer.setAttribute("class", "vinos__stockContainer");
+
+  // boton de compra
+  let buttonContainer = document.createElement("div");
+  buttonContainer.setAttribute("class", "vinos__bottonContainer");
+  let btnCard = document.createElement("button");
+  btnCard.setAttribute("class", "vinos__bottonCompra");
+  btnCard.setAttribute("id", identificacion);
+  btnCard.addEventListener("click", () => {
+    carritos(event);
+  });
+  // btnCard.addEventListener("click", getId());
+
+  card.appendChild(buttonContainer);
+  buttonContainer.appendChild(btnCard);
+
   // contenido
   let imagen = document.createElement("img");
   imagen.src = `./vinos/${listaImagenes[vino.fotoId]}.png`;
@@ -333,9 +365,85 @@ $(function () {
   });
 });
 
-// boton de agregado de vinos por prompt
-// const button = document.querySelector(`#agregarVinos`);
-// button.addEventListener(`click`, agregarVinos);
+// carrito
+
+function carritos(e) {
+  $(".carrito__sectionContainer").show({ duration: 1100 });
+  console.log(e.target.id);
+  let clickCard = e.target.id;
+  listaCarrito.push(listaVinos[clickCard]);
+
+  console.log(listaCarrito.nombre);
+  console.log(listaCarrito.cepa);
+  console.log(listaCarrito.precio);
+
+  console.log(listaCarrito);
+  actualizarTablaCarrito();
+}
+
+// funcion agregado de objetos a la tabla
+function nuevoRowCarrito(vino) {
+  let tableRow = document.createElement("tr");
+
+  let nombre = document.createElement("td");
+  nombre.innerHTML = vino.nombre;
+
+  let cepa = document.createElement("td");
+  cepa.innerHTML = vino.cepa;
+
+  let precio = document.createElement("td");
+  precio.setAttribute("class", `precio`);
+  precio.innerHTML = vino.precio;
+
+  let cantidad = document.createElement("td");
+  cantidad.setAttribute("class", "carrito__cantidad");
+  let cantidadInput = document.createElement("input");
+  cantidadInput.setAttribute("class", "carrito__input");
+  cantidadInput.addEventListener("keyup", () => subtotalx(event));
+  cantidadInput.setAttribute("id", idInput);
+
+  let subtotal = document.createElement("td");
+  subtotal.setAttribute("class", "carrito__subtotal")
+  let subTotalNumero = document.createElement("p");
+  subTotalNumero.setAttribute("class", "carrito__numero");
+  subTotalNumero.innetHTML = vino.sub;
+  
+
+  tableRow.appendChild(nombre);
+  tableRow.appendChild(cepa);
+  tableRow.appendChild(precio);
+  tableRow.appendChild(cantidad);
+  tableRow.appendChild(subtotal);
+  subtotal.appendChild(subTotalNumero);
+  cantidad.appendChild(cantidadInput);
+  carrito.appendChild(tableRow);
+}
+
+// actualizacion de tabla general !!!**
+function actualizarTablaCarrito() {
+  const tempLista = Array.from(carrito.children);
+  tempLista.forEach((filaTabla) => {
+    filaTabla.remove();
+    idInput=100;
+  });
+  listaCarrito.forEach((vino, indice) => {
+    nuevoRowCarrito(vino, indice);
+    idInput++;
+  });
+  window.localStorage.setItem(`listaCarrito`, JSON.stringify(listaCarrito));
+}
+
+function subtotalx(e) {
+  if (e.keyCode === 13) {
+    let clickBtn = e.target.id - 100;
+    let subTotalPrecio = document.getElementById(e.target.id).value * listaCarrito[clickBtn].precio;
+    console.log(subTotalPrecio);
+    console.log(e);
+    listaCarrito[clickBtn].sub = subTotalPrecio;
+    actualizarTablaCarrito()
+    
+  }
+}
 
 // boton de agregado de vinos por inputs
 const button7 = document.querySelector(`#submitVinos`);
@@ -370,4 +478,3 @@ button6.addEventListener(`click`, compra);
 // boton de borrado de filtros
 const button10 = document.querySelector(`#borrarFiltro`);
 button10.addEventListener(`click`, actualizarTabla);
-

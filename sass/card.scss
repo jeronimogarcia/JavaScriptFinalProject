@@ -2,6 +2,24 @@
   display: flex;
   flex-direction: column;
   padding: 5px 160px 20px 160px;
+  .vinos__bottonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    opacity: 80%;
+    z-index: 1;
+    position: relative;
+    top: 200px;
+    padding: 5px;
+    background-color: blue;
+    .vinos__bottonCompra {
+      width: 110px;
+      height: 30px;
+      background-color: blue;
+      border: none;
+    }
+  }
   .vinos__tituloContainer {
     display: flex;
     justify-content: center;
@@ -48,6 +66,8 @@
         width: 275px;
         height: 360px;
         margin-top: 5px;
+        position: relative;
+        bottom: 25px;
         img {
           width: 200px;
         }
@@ -58,6 +78,8 @@
         align-items: center;
         height: 30px;
         margin: 10px 25px 10px 25px;
+        position: relative;
+        bottom: 25px;
         p {
           text-transform: uppercase;
           font-size: 17px;
@@ -75,6 +97,8 @@
         width: 275px;
         margin: 10px 25px 0px 25px;
         border-bottom: 1px solid brown;
+        position: relative;
+        bottom: 25px;
         .vinos__precioContainer {
           display: flex;
           flex-direction: row;
@@ -99,6 +123,8 @@
         width: 275px;
         height: 30px;
         margin: 15px 25px 10px 25px;
+        position: relative;
+        bottom: 25px;
         p {
           font-weight: bold;
         }
