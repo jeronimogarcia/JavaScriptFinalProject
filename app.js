@@ -35,8 +35,20 @@ const listaVinosCarrito = window.localStorage.getItem(`listaCarrito`);
 
 // id card
 let identificacion = 0;
+
 //id btn
 let idInput = 100;
+
+// cotizacion dolar
+
+let dolar;
+
+// total de compra
+
+let sumaCompra = 0;
+let compraContainer = document.getElementById("sumaTotal");
+let compraSuma = document.createElement("p");
+compraContainer.appendChild(compraSuma);
 
 // listaVinosStorage = null? pusheo : listaVinosStorage = string (getItem)
 if (listaVinosStorage) {
@@ -88,7 +100,6 @@ function eliminarVino(indice) {
   actualizarTabla();
 }
 
-
 // actualizacion de tabla general !!!**
 function actualizarTabla() {
   const tempLista = Array.from(tabla.children);
@@ -111,6 +122,7 @@ function actualizarTabla() {
   window.localStorage.setItem(`listaVinos`, JSON.stringify(listaVinos));
 }
 
+/*
 // funcion de agregado a la lista de vinos por prompt
 function agregarVinos() {
   let nombre = prompt(`Ingrese nombre/bodega del vino`);
@@ -138,6 +150,8 @@ function agregarVinos() {
   console.log(listaVinos);
 }
 
+*/
+
 // funcion de agregado a la lista de vinos por form/inputs
 function guardarVinos() {
   const nombre = document.getElementById("nombreVino").value.toLowerCase();
@@ -147,7 +161,8 @@ function guardarVinos() {
     document.getElementById("cepaVino").value.toLowerCase(),
     Number(document.getElementById("precioVino").value),
     Number(document.getElementById("stockVino").value),
-    idFoto == -1 ? 0 : idFoto
+    idFoto == -1 ? 0 : idFoto,
+    0
   );
   listaVinos.push(vinoNuevo);
   actualizarTabla();
@@ -301,10 +316,9 @@ function addVinos(vino) {
   buttonContainer.setAttribute("class", "vinos__bottonContainer");
   let btnCard = document.createElement("button");
   btnCard.setAttribute("class", "vinos__bottonCompra");
+  btnCard.setAttribute("placeholder", "COMPRA");
   btnCard.setAttribute("id", identificacion);
-  btnCard.addEventListener("click", () => {
-    carritos(event);
-  });
+  btnCard.addEventListener("click", carritos);
   // btnCard.addEventListener("click", getId());
 
   card.appendChild(buttonContainer);
@@ -369,14 +383,8 @@ $(function () {
 
 function carritos(e) {
   $(".carrito__sectionContainer").show({ duration: 1100 });
-  console.log(e.target.id);
   let clickCard = e.target.id;
   listaCarrito.push(listaVinos[clickCard]);
-
-  console.log(listaCarrito.nombre);
-  console.log(listaCarrito.cepa);
-  console.log(listaCarrito.precio);
-
   console.log(listaCarrito);
   actualizarTablaCarrito();
 }
@@ -399,15 +407,19 @@ function nuevoRowCarrito(vino) {
   cantidad.setAttribute("class", "carrito__cantidad");
   let cantidadInput = document.createElement("input");
   cantidadInput.setAttribute("class", "carrito__input");
-  cantidadInput.addEventListener("keyup", () => subtotalx(event));
+  // cantidadInput.addEventListener("keyup", subtotalx);
   cantidadInput.setAttribute("id", idInput);
 
   let subtotal = document.createElement("td");
-  subtotal.setAttribute("class", "carrito__subtotal")
+  subtotal.setAttribute("class", "carrito__subtotal");
   let subTotalNumero = document.createElement("p");
   subTotalNumero.setAttribute("class", "carrito__numero");
-  subTotalNumero.innetHTML = vino.sub;
-  
+  subTotalNumero.innerHTML = vino.sub;
+  // cantidadInput.addEventListener("keyup",(e) => subtotalx(e, subTotalNumero));
+  cantidadInput.addEventListener("keyup", (e) => {
+    subtotalx(e, subTotalNumero, vino, cantidadInput.value);
+    // AGREGAR FUNCION DE SUMA TOTAL
+  });
 
   tableRow.appendChild(nombre);
   tableRow.appendChild(cepa);
@@ -424,7 +436,7 @@ function actualizarTablaCarrito() {
   const tempLista = Array.from(carrito.children);
   tempLista.forEach((filaTabla) => {
     filaTabla.remove();
-    idInput=100;
+    idInput = 100;
   });
   listaCarrito.forEach((vino, indice) => {
     nuevoRowCarrito(vino, indice);
@@ -433,17 +445,39 @@ function actualizarTablaCarrito() {
   window.localStorage.setItem(`listaCarrito`, JSON.stringify(listaCarrito));
 }
 
-function subtotalx(e) {
+
+// funcion subtotal
+
+function subtotalx(e, resultado, vino, cantidad) {
   if (e.keyCode === 13) {
-    let clickBtn = e.target.id - 100;
-    let subTotalPrecio = document.getElementById(e.target.id).value * listaCarrito[clickBtn].precio;
+    // let clickBtn = e.target.id - 100;
+    let subTotalPrecio = cantidad * vino.precio;
     console.log(subTotalPrecio);
     console.log(e);
-    listaCarrito[clickBtn].sub = subTotalPrecio;
+    // listaCarrito[clickBtn].sub = subTotalPrecio;
+    // actualizarTablaCarrito()
+    resultado.innerText = subTotalPrecio;
+    vino.sub = subTotalPrecio;
+    sumaCompra = sumaCompra + subTotalPrecio;
+    compraSuma.innerText = sumaCompra;
+    console.log(sumaCompra);
     actualizarTablaCarrito()
-    
   }
 }
+
+// funcion de gasto total de compra
+
+// AJAX cotizacion dolar
+
+// subir declaracion de variable
+const url = "https://www.dolarsi.com/api/api.php?type=valoresprincipales";
+
+$.get(url, (data, est) => {
+  if (est == "success") {
+    dolar = data[1].casa.venta;
+    console.log(dolar);
+  }
+});
 
 // boton de agregado de vinos por inputs
 const button7 = document.querySelector(`#submitVinos`);

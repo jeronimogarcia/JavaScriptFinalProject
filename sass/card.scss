@@ -16,7 +16,6 @@
     .vinos__bottonCompra {
       width: 110px;
       height: 30px;
-      background-color: blue;
       border: none;
     }
   }
@@ -67,7 +66,8 @@
         height: 360px;
         margin-top: 5px;
         position: relative;
-        bottom: 25px;
+        bottom: 40px;
+        
         img {
           width: 200px;
         }
@@ -79,7 +79,8 @@
         height: 30px;
         margin: 10px 25px 10px 25px;
         position: relative;
-        bottom: 25px;
+        bottom: 35px;
+        
         p {
           text-transform: uppercase;
           font-size: 17px;
@@ -98,7 +99,7 @@
         margin: 10px 25px 0px 25px;
         border-bottom: 1px solid brown;
         position: relative;
-        bottom: 25px;
+        bottom: 40px;
         .vinos__precioContainer {
           display: flex;
           flex-direction: row;
@@ -124,7 +125,7 @@
         height: 30px;
         margin: 15px 25px 10px 25px;
         position: relative;
-        bottom: 25px;
+        bottom: 40px;
         p {
           font-weight: bold;
         }
