@@ -63,5 +63,15 @@
         }
       }
     }
+    .carrito__buttonsContainer{
+      display: flex;
+      justify-content: space-evenly;
+      padding: 20px 0px 10px 0px;
+    }
   }
+}
+
+.compraTotal{
+  display: flex;
+  justify-content: flex-end;
 }

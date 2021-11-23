@@ -39,21 +39,6 @@
   display: flex;
   flex-direction: column;
   padding: 5px 160px 20px 160px; }
-  .vinos__container .vinos__bottonContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 300px;
-    opacity: 80%;
-    z-index: 1;
-    position: relative;
-    top: 200px;
-    padding: 5px;
-    background-color: blue; }
-    .vinos__container .vinos__bottonContainer .vinos__bottonCompra {
-      width: 110px;
-      height: 30px;
-      border: none; }
   .vinos__container .vinos__tituloContainer {
     display: flex;
     justify-content: center;
@@ -79,7 +64,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center; }
-    .vinos__container .vinos__listadoContainer .vinos__cardContainer {
+    .vinos__container .vinos__listadoContainer .vinos__bottonCompra {
       display: flex;
       flex-direction: column;
       border: solid 1px red;
@@ -87,32 +72,37 @@
       height: 500px;
       box-sizing: border-box;
       align-items: center;
-      margin: 25px; }
-      .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__fotoContainer {
+      margin: 25px;
+      justify-content: center;
+      background-color: white;
+      z-index: 5;
+      position: relative; }
+      .vinos__container .vinos__listadoContainer .vinos__bottonCompra .vinos__fotoContainer {
         display: flex;
         justify-content: center;
         width: 275px;
-        height: 360px;
+        height: 375px;
         margin-top: 5px;
         position: relative;
-        bottom: 40px; }
-        .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__fotoContainer img {
-          width: 200px; }
-      .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__nombreContainer {
+        bottom: 70px; }
+        .vinos__container .vinos__listadoContainer .vinos__bottonCompra .vinos__fotoContainer img {
+          width: 200px;
+          padding-top: 10px; }
+      .vinos__container .vinos__listadoContainer .vinos__bottonCompra .vinos__nombreContainer {
         display: flex;
         justify-content: center;
         align-items: center;
         height: 30px;
         margin: 10px 25px 10px 25px;
-        position: relative;
-        bottom: 35px; }
-        .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__nombreContainer p {
+        position: absolute;
+        bottom: 80px; }
+        .vinos__container .vinos__listadoContainer .vinos__bottonCompra .vinos__nombreContainer p {
           text-transform: uppercase;
           font-size: 17px;
           font-weight: bold;
           border-bottom: 1px solid brown;
           padding: 0px 15px 0px 15px; }
-      .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__cepaPrecioContainer {
+      .vinos__container .vinos__listadoContainer .vinos__bottonCompra .vinos__cepaPrecioContainer {
         display: flex;
         justify-content: space-between;
         flex-direction: row-reverse;
@@ -121,31 +111,42 @@
         width: 275px;
         margin: 10px 25px 0px 25px;
         border-bottom: 1px solid brown;
-        position: relative;
-        bottom: 40px; }
-        .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__cepaPrecioContainer .vinos__precioContainer {
+        position: absolute;
+        bottom: 45px; }
+        .vinos__container .vinos__listadoContainer .vinos__bottonCompra .vinos__cepaPrecioContainer .vinos__precioContainer {
           display: flex;
           flex-direction: row; }
-          .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__cepaPrecioContainer .vinos__precioContainer p {
+          .vinos__container .vinos__listadoContainer .vinos__bottonCompra .vinos__cepaPrecioContainer .vinos__precioContainer p {
             font-weight: bold; }
-        .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__cepaPrecioContainer .vinos__cepaContainer {
+        .vinos__container .vinos__listadoContainer .vinos__bottonCompra .vinos__cepaPrecioContainer .vinos__cepaContainer {
           display: flex;
           flex-direction: row; }
-          .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__cepaPrecioContainer .vinos__cepaContainer p {
+          .vinos__container .vinos__listadoContainer .vinos__bottonCompra .vinos__cepaPrecioContainer .vinos__cepaContainer p {
             text-transform: capitalize;
             font-size: 16px;
             font-weight: bold; }
-      .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__stockContainer {
+      .vinos__container .vinos__listadoContainer .vinos__bottonCompra .vinos__stockContainer {
         display: flex;
         justify-content: flex-end;
         align-items: center;
         width: 275px;
         height: 30px;
         margin: 15px 25px 10px 25px;
-        position: relative;
-        bottom: 40px; }
-        .vinos__container .vinos__listadoContainer .vinos__cardContainer .vinos__stockContainer p {
+        position: absolute;
+        bottom: -10px; }
+        .vinos__container .vinos__listadoContainer .vinos__bottonCompra .vinos__stockContainer p {
           font-weight: bold; }
+      .vinos__container .vinos__listadoContainer .vinos__bottonCompra .vinos__compra {
+        display: none;
+        position: absolute;
+        bottom: 250px;
+        padding: 5px 80px 5px 80px;
+        font-size: 25px;
+        font-weight: bold;
+        background-color: #ffc300;
+        border: solid 1px red; }
+    .vinos__container .vinos__listadoContainer .vinos__bottonCompra:hover > .vinos__compra {
+      display: block; }
 
 .nav__container {
   position: -webkit-sticky;
@@ -154,7 +155,7 @@
   display: flex;
   justify-content: center;
   background-color: #ffd861;
-  z-index: 2; }
+  z-index: 10; }
   .nav__container ul li a {
     color: black;
     font-size: 20px; }
@@ -258,3 +259,11 @@
         width: 100%;
         height: 100%;
         padding-left: 45px; }
+    .carrito__sectionContainer .carrito__tableMainContainer .carrito__buttonsContainer {
+      display: flex;
+      justify-content: space-evenly;
+      padding: 20px 0px 10px 0px; }
+
+.compraTotal {
+  display: flex;
+  justify-content: flex-end; }

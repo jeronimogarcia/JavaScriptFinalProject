@@ -1,4 +1,4 @@
-// constructor
+/*************************Clase-constructor************************/
 class Vinos {
   constructor(nombre, cepa, precio, stock, fotoId, sub) {
     this.nombre = nombre;
@@ -10,8 +10,9 @@ class Vinos {
   }
 }
 
-// array de imagenes vinos
+/*************************Declaracion variables/arrays************************/
 
+// array de imagenes vinos
 let listaImagenes = [
   "default",
   "lopez",
@@ -22,33 +23,74 @@ let listaImagenes = [
   "trumpeter",
 ];
 
-// lista prearmado de vinos
+// tabla vinos 
 let tabla = document.getElementById("tablita");
+// tabla carrito
 let carrito = document.getElementById("carrito");
-let listaVinos = [];
-let listaCarrito = [];
+// lista vinos
 let listado = document.getElementById("listadoCompleto");
+// array de vinos
+let listaVinos = [];
+// array carrito
+let listaCarrito = [];
 
 // localStorage
 const listaVinosStorage = window.localStorage.getItem(`listaVinos`);
 const listaVinosCarrito = window.localStorage.getItem(`listaCarrito`);
 
-// id card
-let identificacion = 0;
+// ajax cotizacion del dolar
+const url = "https://www.dolarsi.com/api/api.php?type=valoresprincipales";
 
-//id btn
-let idInput = 100;
-
-// cotizacion dolar
-
+// precio dolar
 let dolar;
 
 // total de compra
-
+let pago = 0;
 let sumaCompra = 0;
 let compraContainer = document.getElementById("sumaTotal");
 let compraSuma = document.createElement("p");
+compraSuma.setAttribute("class", "compraTotal");
 compraContainer.appendChild(compraSuma);
+
+/*************************Botones************************/
+
+// boton panel de agregado de vinos
+const button8 = document.querySelector(`#panelAgregado`);
+
+// boton panel de muestra de lista
+const button9 = document.querySelector(`#showLista`);
+
+// boton de ordenamiento de menor a mayor precio
+const button2 = document.querySelector(`#ordenarListaMenor`);
+button2.addEventListener(`click`, ordenarPrecioMenor);
+
+// boton de ordenamiento de mayor a menor precio
+const button3 = document.querySelector(`#ordenarListaMayor`);
+button3.addEventListener(`click`, ordenarPrecioMayor);
+
+// boton de borrado de filtros
+const button10 = document.querySelector(`#borrarFiltro`);
+button10.addEventListener(`click`, actualizarTabla);
+
+// boton de compra y actualizacion de stock
+const button11 = document.querySelector(`#borrarCompra`);
+button11.addEventListener(`click`, borrarCompra);
+
+// boton de compra y actualizacion de stock
+const button12 = document.querySelector(`#finalizarCompra`);
+button12.addEventListener(`click`, finalizarCompra);
+
+// boton de agregado de vinos por inputs
+const button7 = document.querySelector(`#submitVinos`);
+button7.addEventListener(`click`, guardarVinos);
+
+// prevent default
+$("#submitVinos").click(function (e) {
+  e.preventDefault();
+});
+
+
+/*************************Logica separada************************/
 
 // listaVinosStorage = null? pusheo : listaVinosStorage = string (getItem)
 if (listaVinosStorage) {
@@ -68,8 +110,31 @@ if (listaVinosCarrito) {
 } else {
 }
 
+/*************************Funciones************************/
+
 // actualizado de tabla IMPORTANTISIMO
 actualizarTabla();
+
+// funcion actualizacion de tabla general 
+function actualizarTabla() {
+  const tempLista = Array.from(tabla.children);
+  tempLista.forEach((filaTabla) => {
+    filaTabla.remove();
+  });
+  listaVinos.forEach((vino, indice) => {
+    nuevoRow(vino, indice);
+  });
+
+  const tempListaVinos = Array.from(listado.children);
+  tempListaVinos.forEach((div) => {
+    div.remove();
+  });
+  listaVinos.forEach((vino, indice) => {
+    addVinos(vino, indice);
+  });
+
+  window.localStorage.setItem(`listaVinos`, JSON.stringify(listaVinos));
+}
 
 // funcion agregado de objetos a la tabla
 function nuevoRow(vino, orden) {
@@ -92,66 +157,6 @@ function nuevoRow(vino, orden) {
   tabla.appendChild(tableRow);
 }
 
-// eliminar elemento de tabla
-function eliminarVino(indice) {
-  // .splice Removes elements from an array. Remueve 1 elemento del array y reordena el array
-  // (method) Array<any>.splice(start: number (posicion del elemento), deleteCount?: number (cantidad)): any[] (+1 overload)
-  listaVinos.splice(indice, 1);
-  actualizarTabla();
-}
-
-// actualizacion de tabla general !!!**
-function actualizarTabla() {
-  const tempLista = Array.from(tabla.children);
-  tempLista.forEach((filaTabla) => {
-    filaTabla.remove();
-  });
-  listaVinos.forEach((vino, indice) => {
-    nuevoRow(vino, indice);
-  });
-
-  const tempListaVinos = Array.from(listado.children);
-  tempListaVinos.forEach((div) => {
-    div.remove();
-  });
-  listaVinos.forEach((vino, indice) => {
-    addVinos(vino, indice);
-    identificacion++;
-  });
-
-  window.localStorage.setItem(`listaVinos`, JSON.stringify(listaVinos));
-}
-
-/*
-// funcion de agregado a la lista de vinos por prompt
-function agregarVinos() {
-  let nombre = prompt(`Ingrese nombre/bodega del vino`);
-
-  let cepa = prompt(`Ingrese cepa del vino`);
-
-  let precio = Number(prompt(`Ingrese precio del vino`));
-  while (precio <= 0 || isNaN(precio)) {
-    // if corto, falta agregar a los demas prompts
-    precio = Number(
-      prompt(
-        isNaN(precio) ? `Ingrese un NUMERO` : `Ingrese un numero mayor a 0`
-      )
-    );
-  }
-
-  let stock = Number(prompt(`Ingrese stock`));
-  while (stock < 0) {
-    stock = Number(prompt(`Ingrese valor mayor o igual a 0`));
-  }
-
-  let vino = new Vinos(nombre, cepa, precio, stock);
-  listaVinos.push(vino);
-  actualizarTabla();
-  console.log(listaVinos);
-}
-
-*/
-
 // funcion de agregado a la lista de vinos por form/inputs
 function guardarVinos() {
   const nombre = document.getElementById("nombreVino").value.toLowerCase();
@@ -169,9 +174,10 @@ function guardarVinos() {
   console.log(listaVinos);
 }
 
-// funcion muestra de lista
-function mostrarVinos() {
-  console.log(listaVinos);
+// funcion eliminar elemento de tabla
+function eliminarVino(indice) {
+  listaVinos.splice(indice, 1);
+  actualizarTabla();
 }
 
 // funcion ordenar lista de menor a mayor precio
@@ -213,31 +219,7 @@ function sumaStock() {
   console.log(`El stock total es de ${suma} vinos`);
 }
 
-// funcion de filtrado de cepa
-function buscarCepa() {
-  let search = prompt(`Ingrese cepa que desea buscar`);
-  let filtroCepa = listaVinos.filter((obj) => obj.cepa === search);
-  console.log(filtroCepa);
-
-  const tempLista = Array.from(tabla.children);
-  tempLista.forEach((filaTabla) => {
-    filaTabla.remove();
-  });
-  filtroCepa.forEach((vino, indice) => {
-    nuevoRow(vino, indice);
-  });
-
-  const tempListaVinos = Array.from(listado.children);
-  tempListaVinos.forEach((div) => {
-    div.remove();
-  });
-  filtroCepa.forEach((vino, indice) => {
-    addVinos(vino, indice);
-  });
-}
-
 // filtro por cepa
-
 function filtrado(e) {
   console.log(e);
   if (e.keyCode === 13) {
@@ -264,44 +246,9 @@ function filtrado(e) {
   }
 }
 
-// funcion de compra y actualizacion de stock
-function compra() {
-  let vinoCompra = prompt(`Ingrese nombre del vino a comprar`);
-  let stockActual = 0;
-  for (let i = 0; i < listaVinos.length; i++) {
-    if (vinoCompra === listaVinos[i].nombre) {
-      stockActual = listaVinos[i].stock;
-      precioVino = listaVinos[i].precio;
-      if (stockActual > 0) {
-        let stockCompra = Number(
-          prompt(`Ingrese la cantidad que desea llevar`)
-        );
-        if (stockCompra > stockActual) {
-          console.log(`No hay tanto stock`);
-        } else {
-          let stockFinal = 0;
-          stockFinal = stockActual - stockCompra;
-          listaVinos[i].stock = stockFinal;
-          let costo = 0;
-          costo = precioVino * stockCompra;
-          console.log(
-            `Lleva ${stockCompra} unidades del vino ${vinoCompra} y le cuesta ${costo}`
-          );
-        }
-      } else {
-        console.log(`No hay stock`);
-      }
-    }
-  }
-  actualizarTabla();
-}
-
 // creado de cards de vinos
-
 function addVinos(vino) {
   // contenedores
-  let card = document.createElement("div");
-  card.setAttribute("class", "vinos__cardContainer");
   let fotoContainer = document.createElement("div");
   fotoContainer.setAttribute("class", "vinos__fotoContainer");
   let nombreContainer = document.createElement("div");
@@ -310,20 +257,15 @@ function addVinos(vino) {
   cepaPrecioContainer.setAttribute("class", "vinos__cepaPrecioContainer");
   let stockContainer = document.createElement("div");
   stockContainer.setAttribute("class", "vinos__stockContainer");
-
-  // boton de compra
-  let buttonContainer = document.createElement("div");
-  buttonContainer.setAttribute("class", "vinos__bottonContainer");
+  let cartelCompra = document.createElement("div");
+  cartelCompra.setAttribute("class", "vinos__compra");
+  cartelCompra.innerText = "COMPRAR";
+  //boton
   let btnCard = document.createElement("button");
   btnCard.setAttribute("class", "vinos__bottonCompra");
-  btnCard.setAttribute("placeholder", "COMPRA");
-  btnCard.setAttribute("id", identificacion);
-  btnCard.addEventListener("click", carritos);
-  // btnCard.addEventListener("click", getId());
-
-  card.appendChild(buttonContainer);
-  buttonContainer.appendChild(btnCard);
-
+  btnCard.addEventListener("click", (e) => {
+    carritos(e, vino);
+  });
   // contenido
   let imagen = document.createElement("img");
   imagen.src = `./vinos/${listaImagenes[vino.fotoId]}.png`;
@@ -356,15 +298,15 @@ function addVinos(vino) {
   stockContainer.appendChild(stock);
   stockContainer.appendChild(stockNumber);
   nombreContainer.appendChild(nombreVino);
-  card.appendChild(fotoContainer);
-  card.appendChild(nombreContainer);
-  card.appendChild(cepaPrecioContainer);
-  card.appendChild(stockContainer);
-  listado.appendChild(card);
+  btnCard.appendChild(fotoContainer);
+  btnCard.appendChild(nombreContainer);
+  btnCard.appendChild(cepaPrecioContainer);
+  btnCard.appendChild(stockContainer);
+  btnCard.appendChild(cartelCompra);
+  listado.appendChild(btnCard);
 }
 
 // slide del panel de agregado de vinos
-
 $(function () {
   $("#panelAgregado").click(function () {
     $(".form__mainContainer").slideToggle({ duration: 1100 });
@@ -372,7 +314,6 @@ $(function () {
 });
 
 // slide de la lista de vinos
-
 $(function () {
   $("#showLista").click(function () {
     $(".table__tableMainContainer").slideToggle({ duration: 1000 });
@@ -380,11 +321,18 @@ $(function () {
 });
 
 // carrito
-
-function carritos(e) {
+function carritos(e, vino) {
   $(".carrito__sectionContainer").show({ duration: 1100 });
-  let clickCard = e.target.id;
-  listaCarrito.push(listaVinos[clickCard]);
+  console.log(vino);
+  const VinoCarrito = new Vinos(
+    vino.nombre,
+    vino.cepa,
+    vino.precio,
+    vino.stock,
+    0,
+    0
+  );
+  listaCarrito.push(VinoCarrito);
   console.log(listaCarrito);
   actualizarTablaCarrito();
 }
@@ -392,38 +340,33 @@ function carritos(e) {
 // funcion agregado de objetos a la tabla
 function nuevoRowCarrito(vino) {
   let tableRow = document.createElement("tr");
-
   let nombre = document.createElement("td");
   nombre.innerHTML = vino.nombre;
-
   let cepa = document.createElement("td");
   cepa.innerHTML = vino.cepa;
-
   let precio = document.createElement("td");
   precio.setAttribute("class", `precio`);
   precio.innerHTML = vino.precio;
-
+  let stock = document.createElement("td");
+  stock.setAttribute("class", `precio`);
+  stock.innerHTML = vino.stock;
   let cantidad = document.createElement("td");
   cantidad.setAttribute("class", "carrito__cantidad");
   let cantidadInput = document.createElement("input");
   cantidadInput.setAttribute("class", "carrito__input");
-  // cantidadInput.addEventListener("keyup", subtotalx);
-  cantidadInput.setAttribute("id", idInput);
-
   let subtotal = document.createElement("td");
   subtotal.setAttribute("class", "carrito__subtotal");
   let subTotalNumero = document.createElement("p");
   subTotalNumero.setAttribute("class", "carrito__numero");
   subTotalNumero.innerHTML = vino.sub;
-  // cantidadInput.addEventListener("keyup",(e) => subtotalx(e, subTotalNumero));
   cantidadInput.addEventListener("keyup", (e) => {
-    subtotalx(e, subTotalNumero, vino, cantidadInput.value);
-    // AGREGAR FUNCION DE SUMA TOTAL
+    subtotalx(e, subTotalNumero, vino, cantidadInput);
   });
-
+  //asignaicon de hijos
   tableRow.appendChild(nombre);
   tableRow.appendChild(cepa);
   tableRow.appendChild(precio);
+  tableRow.appendChild(stock);
   tableRow.appendChild(cantidad);
   tableRow.appendChild(subtotal);
   subtotal.appendChild(subTotalNumero);
@@ -431,8 +374,9 @@ function nuevoRowCarrito(vino) {
   carrito.appendChild(tableRow);
 }
 
-// actualizacion de tabla general !!!**
+// actualizacion de carrito
 function actualizarTablaCarrito() {
+  pago = 0;
   const tempLista = Array.from(carrito.children);
   tempLista.forEach((filaTabla) => {
     filaTabla.remove();
@@ -440,38 +384,35 @@ function actualizarTablaCarrito() {
   });
   listaCarrito.forEach((vino, indice) => {
     nuevoRowCarrito(vino, indice);
-    idInput++;
   });
+  listaCarrito.forEach((vino, indice) => {
+    pago = pago + vino.sub;
+  });
+  window.localStorage.setItem(`pagoTotal`, JSON.stringify(pago));
   window.localStorage.setItem(`listaCarrito`, JSON.stringify(listaCarrito));
+  compraSuma.innerText = window.localStorage.getItem(`pagoTotal`);
 }
 
-
 // funcion subtotal
-
 function subtotalx(e, resultado, vino, cantidad) {
   if (e.keyCode === 13) {
-    // let clickBtn = e.target.id - 100;
-    let subTotalPrecio = cantidad * vino.precio;
-    console.log(subTotalPrecio);
-    console.log(e);
-    // listaCarrito[clickBtn].sub = subTotalPrecio;
-    // actualizarTablaCarrito()
-    resultado.innerText = subTotalPrecio;
-    vino.sub = subTotalPrecio;
-    sumaCompra = sumaCompra + subTotalPrecio;
-    compraSuma.innerText = sumaCompra;
-    console.log(sumaCompra);
-    actualizarTablaCarrito()
+    let cantComparada = cantidad.value;
+    if (cantComparada < 1) {
+      alert(`Por favor ingresar una cantidad mayor o igual a 1 unidad`);
+    } else {
+      if (cantComparada > vino.stock) {
+        alert(`No hay tanto stock. Stock actual del vino es de ${vino.stock} unidades`);
+      } else {
+        vino.stock = vino.stock - cantidad.value;
+        let subTotalPrecio = cantidad.value * vino.precio;
+        vino.sub = vino.sub + subTotalPrecio;
+        actualizarTablaCarrito();
+      }
+    }
   }
 }
 
-// funcion de gasto total de compra
-
 // AJAX cotizacion dolar
-
-// subir declaracion de variable
-const url = "https://www.dolarsi.com/api/api.php?type=valoresprincipales";
-
 $.get(url, (data, est) => {
   if (est == "success") {
     dolar = data[1].casa.venta;
@@ -479,36 +420,23 @@ $.get(url, (data, est) => {
   }
 });
 
-// boton de agregado de vinos por inputs
-const button7 = document.querySelector(`#submitVinos`);
-button7.addEventListener(`click`, guardarVinos);
+// funcion de finalizar de compra
+function finalizarCompra() {
+  let dolares = parseFloat(dolar);
+  let pesos = JSON.parse(window.localStorage.getItem(`pagoTotal`));
+  let cantDolares = pesos / dolares;
+  let cantDolaresFix = cantDolares.toFixed(2);
+  alert(
+    `Gracias por comprar, debe abonar un total de ${window.localStorage.getItem(
+      `pagoTotal`
+    )} pesos o ${cantDolaresFix} dolares`
+  );
+}
 
-// boton panel de agregado de vinos
-const button8 = document.querySelector(`#panelAgregado`);
+// funcion de borrado de carrito
+function borrarCompra() {
+  listaCarrito = [];
+  window.localStorage.setItem(`listaCarrito`, JSON.stringify(listaCarrito));
+  actualizarTablaCarrito();
+}
 
-// boton panel de muestra de lista
-const button9 = document.querySelector(`#showLista`);
-
-// boton de mostrado de lista
-const button1 = document.querySelector(`#mostrarVinos`);
-button1.addEventListener(`click`, mostrarVinos);
-
-// boton de ordenamiento de menor a mayor precio
-const button2 = document.querySelector(`#ordenarListaMenor`);
-button2.addEventListener(`click`, ordenarPrecioMenor);
-
-// boton de ordenamiento de mayor a menor precio
-const button3 = document.querySelector(`#ordenarListaMayor`);
-button3.addEventListener(`click`, ordenarPrecioMayor);
-
-// boton de suma de stock
-const button4 = document.querySelector(`#sumaStock`);
-button4.addEventListener(`click`, sumaStock);
-
-// boton de compra y actualizacion de stock
-const button6 = document.querySelector(`#compra`);
-button6.addEventListener(`click`, compra);
-
-// boton de borrado de filtros
-const button10 = document.querySelector(`#borrarFiltro`);
-button10.addEventListener(`click`, actualizarTabla);
